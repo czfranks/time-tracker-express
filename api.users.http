@@ -1,0 +1,41 @@
+@hostname = localhost
+@port = 3000
+@base_url = http://{{hostname}}:{{port}}
+
+# Welcome
+GET {{base_url}}
+###
+
+# Show Users
+GET {{base_url}}/users
+###
+
+# Show User by id
+GET {{base_url}}/users/27
+###
+
+# Create user
+POST {{base_url}}/users
+Content-Type: application/json
+
+{
+  "name": "Chicken Little",
+  "email": "chickenLittle@mail.com",
+  "role": "Farmer",
+  "rate": 1234
+}
+###
+
+#Update user with PATCH OR PUT
+PUT {{base_url}}/users/68
+Content-Type: application/json
+
+{
+  "rate": 134,
+  "email": "glorify@gmail.com",
+  "id": 100
+} 
+###
+
+#Delete user with id
+DELETE {{base_url}}/users/80

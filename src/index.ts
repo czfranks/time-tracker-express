@@ -1,26 +1,27 @@
+import usersRouter from './routers/users-router';
 import express from 'express';
-import pg from 'pg';
+import morgan from 'morgan';
 
 const app = express();
+const port = 3000;
+app.disable('x-powered-by');
 
-const pool = new pg.Pool({
-  user: process.env['PG_USER'],
-  password: process.env['PG_PASSWORD'],
-  host: 'localhost',
-  port: 5432,
-  database: 'time_tracker',
-});
+//middleware
+app.use(
+  morgan(':method :url :status :res[content-length] - :response-time ms')
+);
+//json body
+app.use(express.json());
 
+//router
+app.use('/users', usersRouter);
+
+//root route
 app.get('/', (_req, res) => {
-  res.send('Hello world');
+  res.send('Welcome to API');
 });
 
-app.get('/users', async (_req, res) => {
-  const result = await pool.query('select * from users');
-  const users = result.rows;
-  res.json(users);
-});
-
-app.listen(3000, () => {
-  console.log('serving at http://localhost:3000');
+//server up
+app.listen(port, () => {
+  console.log(`serving at http://localhost:${port}`);
 });
