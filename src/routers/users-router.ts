@@ -5,7 +5,7 @@ import express, { Request, Response } from 'express';
 
 const usersRouter = express.Router();
 
-//show users
+//show all users
 usersRouter.get('/', async (_req, res) => {
   try {
     const users = await usersService.getAllUsers();

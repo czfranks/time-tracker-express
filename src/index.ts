@@ -3,13 +3,16 @@ import express from 'express';
 import morgan from 'morgan';
 
 const app = express();
-const port = 3000;
+const port = process.env['PORT'] || 3000;
+
+//disable express header
 app.disable('x-powered-by');
 
 //middleware
 app.use(
   morgan(':method :url :status :res[content-length] - :response-time ms')
 );
+
 //json body
 app.use(express.json());
 

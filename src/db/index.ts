@@ -11,3 +11,7 @@ const pool = new pg.Pool({
 export const query = (text: string, params?: string[]) => {
   return pool.query(text, params);
 };
+
+(async () => {
+  console.log(await pool.query('select now()'));
+})();
